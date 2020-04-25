@@ -413,6 +413,7 @@ $("#ID").html("Your Account ID: "+account);
   {
     alert("You have successfully logged in");
     document.getElementById("loginDiv").style.display = "none";
+    document.getElementById("canDiv").style.display = "block";
     // var account = web3.currentProvider.selectedAddress
     // console.log(account)
   $("#ID").html("Your account ID: "+v[4]);
@@ -428,7 +429,8 @@ $("#ID").html("Your Account ID: "+account);
       document.getElementById("sec_msg").disabled=true;
       document.getElementById("sec_num").disabled=true;
       document.getElementById("login").disabled=true;
-      //document.getElementById("loginDiv").style.display = "none";
+      document.getElementById("loginDiv").style.display = "none";
+      document.getElementById("blocked").style.display = "block";
     }
     else
     {
@@ -449,38 +451,16 @@ else if(currentTime>evd)
    },
 
  voteForCandidate: async()=> {
-//    var today = new Date();
-//    console.log(today)
-//   var dd = today.getDate();
-//   var mm = today.getMonth()+1; //January is 0!
-//   var yyyy = today.getFullYear();
-//   if(dd<20) {
-//     dd = '0'+dd
-//   } 
-//   if(mm<10) {
-//     mm = '0'+mm
-//   } 
-//   today = dd + '/' + mm + '/' + yyyy;
-
-// if(dd>ddV && mm>=mmV && yyyy>=yyyyV){    
-//     alert("Voting is closed");    
-//   }
-//   else if(dd<ddS && mm<=mmS && yyyy<=yyyyS)
-//   {
-//     alert("Voting starts on "+dateS);
-//   }
-//   else{
      var r = document.getElementById("vvid").value;
      var v = await App.voting.voters(r);
-    //  var currentTime= Math.floor(new Date().getTime()/1000.0);
-    //  var svd= await App.voting.startVote();
-    // var evd= await App.voting.endVote();
     var account = await App.voting.voters(r)[4];
     console.log(account)
      $("#ID").html(account);
     if(v[1]==true)
     {
       alert("You have already voted");
+      document.getElementById("canDiv").style.display = "none";
+      document.getElementById("thankyou").style.display = "block";
     }
     else
     {
@@ -494,7 +474,9 @@ else if(currentTime>evd)
     console.log("e:"+e)
     //var candidateName = e;  
     await App.voting.vote(e);
-    alert("Thank you for Voting!")
+    document.getElementById("canDiv").style.display = "none";
+    document.getElementById("thankyou").style.display = "block";
+    //alert("Thank you for Voting!")
     //{from: account} 
     }
  
@@ -792,8 +774,8 @@ console.log("current" + currentTime)
 
 
 }
-// $(() => {
-//   $(window).load(() => {
-//     App.load()
-//   })
-// })
+$(() => {
+  $(window).load(() => {
+    App.load()
+  })
+})
